@@ -1,4 +1,4 @@
 class AuthorController < ApplicationController
-    def new
+    def new_author_path
     end
 end
