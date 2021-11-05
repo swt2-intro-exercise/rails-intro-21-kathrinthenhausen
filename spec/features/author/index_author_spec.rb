@@ -8,6 +8,6 @@ describe "Index author page", :type => :feature do
         visit authors_path
         expect(page).to have_css('table', text:@alan.first_name, text:@alan.last_name, text:@alan.homepage)
         expect(page).to have_link 'Show', href: author_path(@alan)
-
+        expect(page).to have_link 'New author', href: new_author_path
     end
 end
