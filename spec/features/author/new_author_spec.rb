@@ -14,6 +14,9 @@ describe "New author page", type: :feature do
         expect(page).to have_field('author[homepage]')
     end
 
+ end
+
+ describe "Add new author", type: :feature do
     it "should save the filled-in data in the database" do
         visit new_author_path
         page.fill_in 'author[first_name]', with: 'Edsger'
@@ -22,5 +25,13 @@ describe "New author page", type: :feature do
         find('input[type="submit"]').click
         expect(Author.exists?(first_name: 'Edsger', last_name: 'Dijkstra', homepage: 'https://dijkstra.rocks'))
     end
-  
+
+    it "should validate authors data on completeness" do
+        visit new_author_path
+        page.fill_in 'author[first_name]', with: 'Ed'
+        page.fill_in 'author[homepage]', with: 'https://dijkstra.rocks'
+        find('input[type="submit"]').click
+        expect(Author.where(first_name: 'Ed')).not_to be_present
+    end
+
  end
