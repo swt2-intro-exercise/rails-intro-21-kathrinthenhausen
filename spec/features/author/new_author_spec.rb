@@ -25,13 +25,23 @@ describe "New author page", type: :feature do
         find('input[type="submit"]').click
         expect(Author.exists?(first_name: 'Edsger', last_name: 'Dijkstra', homepage: 'https://dijkstra.rocks'))
     end
+end
 
+describe "Validations", type: :feature do
     it "should validate authors data on completeness" do
         visit new_author_path
         page.fill_in 'author[first_name]', with: 'Ed'
         page.fill_in 'author[homepage]', with: 'https://dijkstra.rocks'
         find('input[type="submit"]').click
         expect(Author.where(first_name: 'Ed')).not_to be_present
+    end
+
+    it "should direct to error page if validation fails" do
+        visit new_author_path
+        page.fill_in 'author[first_name]', with: 'Ed'
+        page.fill_in 'author[homepage]', with: 'https://dijkstra.rocks'
+        find('input[type="submit"]').click
+        expect(page).to have_text("prohibited this author from being saved:")
     end
 
  end
