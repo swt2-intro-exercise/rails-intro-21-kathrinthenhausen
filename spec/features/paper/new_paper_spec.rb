@@ -28,11 +28,37 @@ describe "New author page", type: :feature do
 end
 
 describe "Validations", type: :feature do
-    it "should validate authors data on completeness" do
+    it "should validate papers data on completeness - title" do
         visit new_paper_path
         page.fill_in 'paper[venue]', with: 'Ed'
+        page.fill_in 'paper[title]', with: 'Bd'
         find('input[type="submit"]').click
-        expect(Paper.where(venue: 'Ed')).not_to be_present
+        expect(Paper.where(venue: 'Ed', title: 'Bd')).not_to be_present
+    end
+
+    it "should validate papers data on completeness - venue" do
+        visit new_paper_path
+        page.fill_in 'paper[venue]', with: 'Ed'
+        page.fill_in 'paper[year]', with: '1234'
+        find('input[type="submit"]').click
+        expect(Paper.where(venue: 'Ed', year: '1234')).not_to be_present
+    end
+
+    it "should validate papers data on completeness - year" do
+        visit new_paper_path
+        page.fill_in 'paper[venue]', with: 'Ed'
+        page.fill_in 'paper[title]', with: 'Bd'
+        find('input[type="submit"]').click
+        expect(Paper.where(venue: 'Ed', title: 'Bd')).not_to be_present
+    end
+
+    it "should validate papers year on right format" do
+        visit new_paper_path
+        page.fill_in 'paper[venue]', with: 'Ed'
+        page.fill_in 'paper[title]', with: 'Bd'
+        page.fill_in 'paper[year]', with: '12sa'
+        find('input[type="submit"]').click
+        expect(Paper.where(venue: 'Ed', title: 'Bd', year: '12sa')).not_to be_present
     end
 
     it "should direct to error page if validation fails" do
