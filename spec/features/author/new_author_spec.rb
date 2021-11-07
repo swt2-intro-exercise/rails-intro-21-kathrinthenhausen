@@ -23,7 +23,7 @@ describe "New author page", type: :feature do
         page.fill_in 'author[last_name]', with: 'Dijkstra'
         page.fill_in 'author[homepage]', with: 'https://dijkstra.rocks'
         find('input[type="submit"]').click
-        expect(Author.exists?(first_name: 'Edsger', last_name: 'Dijkstra', homepage: 'https://dijkstra.rocks'))
+        expect(Author.exists?(first_name: 'Edsger', last_name: 'Dijkstra', homepage: 'https://dijkstra.rocks')).to be true
     end
 end
 
