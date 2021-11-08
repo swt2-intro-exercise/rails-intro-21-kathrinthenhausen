@@ -15,17 +15,7 @@
   <%= @paper.year %>
 </p>
 
-<p>
-  <strong>Select authors of the paper:</strong>
-<%= form_with(model: @paper, local: true) do |form| %>
-  <%=form.select 'author_ids',
-  options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
-  {},
-  multiple: true, size: 10 %>
-  <%= form.submit %>
 
-<% end %>
-</p>
 
 
 <p>
