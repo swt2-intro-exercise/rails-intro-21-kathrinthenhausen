@@ -1,3 +1,7 @@
+<h1>Editing Paper</h1>
+
+<%= render 'form', paper: @paper %>
+
 <%= form_with(model: paper, local: true) do |form| %>
   <% if paper.errors.any? %>
     <div id="error_explanation">
@@ -25,16 +29,18 @@
     <%= form.label :year %>
     <%= form.number_field :year %>
   </div>
-
-
-  <strong>Select authors of the paper:</strong>
+  
   <%=form.select 'author_ids',
-        options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
-        {},
-        multiple: true, size: 10 %>
+options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
+{},
+multiple: true, size: 10 %>
 
-    <div class="actions">
+
+  <div class="actions">
     <%= form.submit id: "submit-edit"%>
   </div>
-
 <% end %>
+
+<%= link_to 'Show', @paper %> |
+<%= link_to 'Back', papers_path %>
+

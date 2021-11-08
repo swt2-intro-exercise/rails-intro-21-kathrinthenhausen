@@ -5,14 +5,4 @@
 <%= link_to 'Show', @paper %> |
 <%= link_to 'Back', papers_path %>
 
-<p>
-  <strong>Select authors of the paper:</strong>
-    <%= form_with(model: @paper, local: true) do |form2| %>
-            <%=form2.select 'author_ids',
-        options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
-        {},
-        multiple: true, size: 10 %>
-    <%= form2.submit id: "submit-authors" %>
 
-    <% end %>
-</p>

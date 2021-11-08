@@ -32,7 +32,7 @@ describe "Assign authors to paper test" do
 
         # Unable to find option nil within #<Capybara::Node::Element tag="select" path="/html/body/form/select">
         select value=x, from: "paper[author_ids][]"
-        find('input[id="submit-authors"]').click
+        find('input[type="submit"]').click
         expect(@alan.authors).to eq([@writer])
         #expect(x).to be("1") #
         #expect(Author.where(first_name: "alan")[:ids]).to be("1")
