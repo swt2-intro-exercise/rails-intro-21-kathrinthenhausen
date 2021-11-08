@@ -16,6 +16,19 @@
 </p>
 
 <p>
+  <strong>Select authors of the paper:</strong>
+<%= form_with(model: @paper, local: true) do |form| %>
+  <%=form.select 'author_ids',
+  options_from_collection_for_select(Author.all, :id, :name, @paper.author_ids),
+  {},
+  multiple: true, size: 10 %>
+  <%= form.submit %>
+
+<% end %>
+</p>
+
+
+<p>
   <strong>Autoren:</strong>
   <table>
     <tbody>
@@ -23,11 +36,6 @@
           <tr>
           <td><%= author.first_name +  " " + author.last_name %></td>
           <td><%= author.homepage %></td>
-          <td><%= link_to 'Show', author_path(author) %></td>
-          <td><%= link_to 'Edit', edit_author_path(author) %></td>
-          <td><%= link_to 'Destroy', author_path(author),
-              method: :delete,
-              data: { confirm: 'Are you really really sure?' } %></td>
           </tr>
       <% end %>
       <tbody>
